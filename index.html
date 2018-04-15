@@ -23,19 +23,107 @@
   .smaller-image {
     width: 100px;
   }
+  //以下複製
+  .abgne_product_arrow_silder {
+	width: 450px;
+	height: 250px;
+	position: relative;
+	border: 1px solid #ccc;
+	overflow: hidden;
+}
+  .prev {
+	background:url(prev.gif) no-repeat;
+	width: 38px;
+	height: 48px;
+	position: absolute;
+	left: -48px;	/* 先藏在左邊 */
+	top: 101px;	/* (區塊高-圖片高) / 2 */
+	z-index: 100;
+}
+.next {
+	background:url(next.gif) no-repeat;
+	width: 38px;
+	height: 48px;
+	position: absolute;
+	right: -48px;	/* 先藏在右邊 */
+	top: 101px;	/* (區塊高-圖片高) / 2 */
+	z-index:100;
+}
+.abgne_product_arrow_silder ul, .abgne_product_arrow_silder ul li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.abgne_product_arrow_silder ul li {
+	position: absolute;
+	z-index: 1;
+}
+.abgne_product_arrow_silder ul li.selected {
+	z-index: 99;
+}
+  $(function(){
+	// 先取得必要的元素並用 jQuery 包裝
+	// 並設定箭頭圖片的寬度及其透明度
+	// 接著產生兩個放置箭頭用的空白超連結
+	var $silder = $('.abgne_product_arrow_silder'),
+		$li = $('ul li', $silder),
+		arrowWidth = 48 * -1,
+		arrowOpacity = .3,
+		$arrows = $('<a href="#" class="prev"></a><a href="#" class="next"></a>').css('opacity', arrowOpacity),
+		$prev = $arrows.filter('.prev'),
+		$next = $arrows.filter('.next'),
+		fadeSpeed = 400;
+ 
+	// 把箭頭超連結加到 $silder 中
+	// 並幫 $silder 加上 hover 事件
+	$silder.append($arrows).hover(function(){
+		var no = $li.filter('.selected').index();
+		arrowAction(no > 0 ? 0 : arrowWidth, no < $li.length - 1 ? 0 : arrowWidth);
+	}, function(){
+		arrowAction(arrowWidth, arrowWidth);
+	});
+ 
+	// 當滑鼠點擊左右箭頭時
+	$arrows.click(function(){
+		// 先取出目前顯示的 li 及其排行
+		var $selected = $li.filter('.selected'),
+			no = $selected.index();
+ 
+		// 判斷是要上一張還是下一張
+		no = this.className=='prev' ? no - 1 : no + 1;
+		$li.eq(no).addClass('selected').siblings().removeClass('selected');
+ 
+		arrowAction(no > 0 ? 0 : arrowWidth, no < $li.length - 1 ? 0 : arrowWidth);
+ 
+		return false;
+	}).focus(function(){
+		this.blur();
+	});
+ 
+	// 控制左右箭頭顯示或隱藏
+	function arrowAction(l, r){
+		$prev.stop().css({ left: l });
+		$next.stop().css({ right: r });
+	}
+});
+
 </style>
-<head><title class="blue-text">Maykuo's Personal Page</title></head>
+<head>
+  <title class="blue-text">Maykuo's Personal Page</title>
+</head>
 <body bgcolor="#FFFFBB" align="center">
 <div class="container-fluid">
   <h1 align="center">Maykuo's 個人頁面</h1>
   <p>Click here for <a href="https://www.facebook.com/profile.php?id=100002713653663">May's FB</a>.</p>
   <img src="https://pics.me.me/what-think-what-can-into-what-i-say-to-words-15865765.png"  alt="http://img.zcool.cn/community/02ea2c556d6aeb0000016b62228d36.jpg@800w_1l">
   <p>Things Maykuo loves:</p>
-  <ul>
-    <li>pudding</li>
-    <li>game</li>
-    <li>weekend</li>
-  </ul>
+  <div class="abgne_product_arrow_silder">
+		<ul>
+			<li class="selected"><img src="https://d1rs8vx5q6ub74.cloudfront.net/20160308/original/1457398481930.jpg" /></li>
+			<li><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Manga_meat.png/220px-Manga_meat.png" /></li>
+			<li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSltFxIb2NHCa0eeYBl2N8a8yie6hZ25pNx6Mmrzpy0-JrM8858Jw" /></li>
+		</ul>
+	</div>
   <p>Top 3 things Maykuo hates:</p>
   <ol>
     <li>bad guy</li>
