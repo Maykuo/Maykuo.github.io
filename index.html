@@ -25,7 +25,25 @@
   .smaller-image {
     width: 100px;
   }
-  
+  .abgne_product_arrow_silder {
+	width: 450px;
+	height: 250px;
+	position: relative;
+	border: 1px solid #ccc;
+	overflow: hidden;
+}
+.abgne_product_arrow_silder ul, .abgne_product_arrow_silder ul li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.abgne_product_arrow_silder ul li {
+	position: absolute;
+	z-index: 1;
+}
+.abgne_product_arrow_silder ul li.selected {
+	z-index: 99;
+}
 </style>
 
   
@@ -35,20 +53,31 @@
 <body bgcolor="#FFFFBB" >
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
 <script>
-  	   $(document).ready(function() { $("#Headline").css("color","blue");
+  	   $(document).ready(function() { $("#Headline").css("color","red")
+					 
 					});
 </script>
+<script>
+$(function(){
+	
+	$("#goTop").click(function(){
+		$("html,body").animate({scrollTop:0},900);
+		return false;
 
+	});
+
+});
+</script>
 <div class="container-fluid">
-  <div id = "Headline" align="center">Maykuo's 個人頁面</div>
+  <h1 id = "Headline" align="center" color = "blue">Maykuo's 個人頁面</h1>
 	
   <p>Click here for <a href="https://www.facebook.com/profile.php?id=100002713653663">May's FB</a>.</p>
-  <div id="123">試試CSS?</div>
-  <p>Things Maykuo loves:</p>
+
+<p>Things Maykuo loves:</p>
   <ol>
-    <li>weekends</li>
-    <li>food</li>
     <li>good guy</li>
+    <li>no homework</li>
+    <li>weekends</li>
   </ol>
 
   <p>Things Maykuo hates:</p>
@@ -57,6 +86,9 @@
     <li>homework</li>
     <li>more homework</li>
   </ol>
+<p align = "center>
+    <a id = "goTop" herf = "#">go top</a>
+</p>
 <img src="https://pics.me.me/what-think-what-can-into-what-i-say-to-words-15865765.png"  alt="http://img.zcool.cn/community/02ea2c556d6aeb0000016b62228d36.jpg@800w_1l">
 
   <p>405262283 郭謹儀</p>
